@@ -8,6 +8,7 @@
 <script th:src="@{/jquery-3.4.1.min.js}"></script>
 <script src="/tether.min.js"></script>
 <script src="/bootstrap.min.js"></script>
+<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 <link href="/bootstrap.min.css" rel="stylesheet"></link>
 	<link href="/navbar-top-fixed.css" rel="stylesheet"></link>
 	
@@ -38,10 +39,12 @@
 	</form>
 	
 	<div class="container" style="margin-top: 5%;">
-		<div class="card mb-3" style="max-width: 100%';">
+		<div class="card mb-3" style="max-width: 100%;">
 		  <div class="row no-gutters">
-		    <div class="col-md-3">
-		      <img src="/indice.png" class="card-img" alt="...">
+		    <div class="col-md-2" style="text-align: center;">
+		      <img src="/indice.png" class="card-img" alt="..." width="" height="">
+		      <br><br>
+		      <button class="btn btn-light">Editar foto</button>
 		    </div>
 		    <div class="col-md-8">
 		      <div class="card-body" style="padding: 5%;">
@@ -58,7 +61,15 @@
 		        <div class="row">
 		        	<label class="col-sm-4">E-mail</label>:&nbsp;&nbsp;
 			        <div class="col-sm-4"> 
-			        	<p class="card-text" th:text="${usuario.email}"></p>
+			        	
+			        	<input type="text" class="form-control" th:value="${usuario.email}">
+			        	<hr>
+			        </div>
+		        </div>
+		        <div class="row">
+		        	<label class="col-sm-4">Fecha de nacimiento</label>:&nbsp;&nbsp;
+			        <div class="col-sm-4"> 
+			        	<p class="card-text" th:text="${#dates.format(usuario.fechaNacimiento, 'dd/MM/yyyy')}"></p>
 			        	<hr>
 			        </div>
 		        </div>
@@ -84,8 +95,18 @@
 			        	<hr>
 			        </div>
 		        </div>
-		        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+		        <button class="btn  btn-outline-danger btn-sm btn-block">Eliminar cuenta</button>
+		        
 		      </div>
+		      
+		    </div>
+		    <div class="col-md-2">
+		    <ul class="list-group list-group-flush">
+  				<li class="list-group-item" style="color: orange;"><ion-icon name="refresh" size="large"></ion-icon></li>
+  				<li class="list-group-item">Cambiar contraseña</li>
+			</ul>
+		    	<button class="btn btn-primary btn-sm">Actualizar</button>
+		    	<button class="btn btn-primary btn-sm">Cambiar contraseña</button>
 		    </div>
 		  </div>
 		</div>

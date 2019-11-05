@@ -1,11 +1,15 @@
 package com.authentication.main.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /*
  * Nombre de la clase: Usuario
@@ -40,6 +44,10 @@ public class Usuario {
     @Column(name = "tbusuario_contrasenhia")
     private String password;
     
+    @Temporal(TemporalType.DATE)
+    @Column(name = " tb_usuario_fecha_nacimiento")
+    private Date fechaNacimiento;
+    
     @Column(name = "tbusuario_sexo")
     private String sexo;
     
@@ -55,13 +63,14 @@ public class Usuario {
     //Métodos constructores
     public Usuario(){}
 
-    public Usuario(String name, String apellido, String telefono, String email, String password, 
+    public Usuario(String name, String apellido, String telefono, String email, String password, Date fechaNacimiento, 
     		String sexo, String nombreContactoEmergencia, String numeroContactoEmergencia,  boolean enabled) {
         this.name = name;
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
         this.password = password;
+        this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.nombreContactoEmergencia = nombreContactoEmergencia;
         this.numeroContactoEmergencia = numeroContactoEmergencia;
@@ -148,5 +157,12 @@ public class Usuario {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-    
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
 }

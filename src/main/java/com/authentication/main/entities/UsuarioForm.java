@@ -101,5 +101,4 @@ public class UsuarioForm {
 	public void setNumeroContactoEmergencia(String numeroContactoEmergencia) {
 		this.numeroContactoEmergencia = numeroContactoEmergencia;
 	}
-	
 }

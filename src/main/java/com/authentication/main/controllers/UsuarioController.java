@@ -2,6 +2,8 @@ package com.authentication.main.controllers;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,12 +38,15 @@ public class UsuarioController {
 	@PostMapping("/register")
 	public String register(Model model, Usuario usuario, UsuarioForm usuarioForm, HttpServletRequest req , BindingResult result) throws ParseException {
 		
+		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fecha_nacimiento"));
+		
 		if (usuarioForm.getName().matches("^[a-zA-Z0-9]{3,}$") && req.getParameter("repetirContrasenhia") != null && req.getParameter("repetirContrasenhia").equals(usuarioForm.getPassword())){
 			usuario = new Usuario(usuarioForm.getName().trim(), 
 					usuarioForm.getApellido().trim(),
 					usuarioForm.getTelefono().trim(),
 					usuarioForm.getEmail().trim(),
 					new BCryptPasswordEncoder().encode(usuarioForm.getPassword()),
+					fecha,
 					usuarioForm.getSexo(),
 					usuarioForm.getNombreContactoEmergencia(),
 					usuarioForm.getNumeroContactoEmergencia(),
