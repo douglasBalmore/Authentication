@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<script th:src="@{/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/tether.min.js}"></script>
+<script th:src="@{/bootstrap.min.js}"></script>
+<title>Insert title here</title>
+<link th:href="@{/bootstrap.min.css}" rel="stylesheet"></link>
+<link href="/navbar-top-fixed.css" rel="stylesheet"></link>
+<style>
+	.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+	background: #FFF;
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+.login-form-2{
+display: flex;
+justify-content: center;
+align-items: center;
+    padding: 5%;
+    background: #0062cc;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-2 h1{
+    text-align: center;
+    color: #fff;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+.login-form-2 .btnSubmit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+}
+.login-form-2 .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+</style>
+
+	<script>
+		$(document).ready(function () { 
+			$('#ingresar').on('click', function () {
+				
+				var clave1 = $('#clave1').val();
+                var clave2 = $('#clave2').val();
+                
+                if (clave1 != clave2)
+                {
+                    $('#mensaje').attr('style', 'color:orange');
+                    $('#mensaje').text('¡La constraseñas no son iguales!');
+                }
+                else
+                {
+                	$('#frmUsuario').submit();
+                }
+                
+			});
+
+		});
+	
+	</script>
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-blue">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			<a class="navbar-brand" href="#">Prototype</a>
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+			</ul>
+			<form th:action="@{/appLogin}" method="POST" class="form-inline my-2 my-lg-0">
+				<input type="text" name="app_username" class="form-control form-control-sm mr-sm-2" placeholder="Usuario" />
+				<input type="password" name="app_password" class="form-control form-control-sm mr-sm-2 " placeholder="Contraseña" />
+				<button class="btn btn-primary btn-sm my-2 my-sm-0" type="submit">Iniciar
+					sesión</button>
+			</form>
+			<a class="nav-link" th:href="@{userController/register}" style="color: white;">Regístrate</a>
+			
+		</div>
+
+	</nav>
+
+	<form id="logoutForm" method="post" action="/logout">
+
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" />
+
+	</form>
+	
+	<div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Regístrate</h3>
+                    <form th:action="@{/userController/register}" th:object="${usuarioForm}" id="frmUsuario" method="post">
+					<div class="form-row">
+						<div class="col-md-6 mb-6">
+							<label>Nombre</label> <input type="text" th:field="*{name}"
+								class="form-control" required />
+						</div>
+						<div class="col-md-6 mb-6">
+							<label>Apellido</label> <input type="text" th:field="*{apellido}"
+								class="form-control" required />
+						</div>
+						<div class="col-md-6 mb-6">
+							<label>Teléfono</label> <input type="text" th:field="*{telefono}"
+								class="form-control" required />
+						</div>
+						<div class="col-md-6 mb-6">
+							<label>E-mail</label> <input type="email" th:field="*{email}"
+								class="form-control" required />
+						</div>
+					</div>
+						<div class="form-row">
+						
+						<div class="col-md-6 mb-6">
+							<label>Contraseña</label> <input type="password" id="clave1"
+								th:field="*{password}" class="form-control" required />
+						</div>
+						<div class="col-md-6 mb-6">
+							<label>Repetir contraseña</label> <input type="password" id="clave2"
+								class="form-control" name="repetirContrasenhia" required />
+								<p id="mensaje"></p>
+						</div>
+						</div>
+						<div class="form-row">
+						<div class="col-md-8 mb-8">
+							<label class="control-label">Sexo</label><br>
+							<input type="radio" th:field="*{sexo}" value="Masculino" required /> Masculino
+							<input type="radio" th:field="*{sexo}" value="Femenino" required /> Femenino
+						</div>
+						</div>						
+						<div class="form-row" style="margin-top: 2%;">
+					<div class="col-md-12 mb-12">
+						<label>En caso de emergencia llamar a:</label> <input
+							type="text" th:field="*{nombreContactoEmergencia}"
+							class="form-control" required />
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col-md-6 mb-6">
+						<label>Teléfono</label> <input type="text"
+							th:field="*{numeroContactoEmergencia}" class="form-control"
+							required />
+					</div>
+				</div>
+			<button type="button" class="btn btn-primary btn-lg btn-block btnSubmit" id="ingresar" style="margin-top: 4%;">Confirmar</button>
+		</form>
+                </div>
+                <div class="col-md-6 login-form-2">
+                    <h1>¡Comienza hoy!</h1>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
