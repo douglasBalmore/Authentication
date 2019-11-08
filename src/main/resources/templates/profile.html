@@ -39,75 +39,78 @@
 	</form>
 	
 	<div class="container" style="margin-top: 5%;">
-		<div class="card mb-3" style="max-width: 100%;">
+		<div class="card mb-3" style="max-width: 100%; padding: 20px;">
 		  <div class="row no-gutters">
 		    <div class="col-md-2" style="text-align: center;">
 		      <img src="/indice.png" class="card-img" alt="..." width="" height="">
 		      <br><br>
 		      <button class="btn btn-light">Editar foto</button>
+		      <br><br>
+		      <button class="btn btn-light">Cambiar contraseña</button>
 		    </div>
-		    <div class="col-md-8">
+		    <div class="col-md-10">
 		      <div class="card-body" style="padding: 5%;">
-		        <h4 class="card-title" th:text="${usuario.name + ' ' + usuario.apellido}"></h4>
+		      <h4><input type="text" th:value="${usuario.name + ' ' + usuario.apellido}" class="card-title" style="border: 0;"></h4>
 		        <br>
 		        <div class="row">
 		        	<label class="col-sm-4">Sexo</label>:&nbsp;&nbsp;
-			        <div class="col-sm-4"> 
-			        	<p class="card-text" th:text="${usuario.sexo}"></p>
+			        <div class="col-sm-6"> 
+			        	<input type="radio" name="genero" value="F" th:checked="${usuario.sexo == 'Femenino'}">&nbsp;Femenino&nbsp;
+						<input type="radio" name="genero" value="M" th:checked="${usuario.sexo == 'Masculino'}">&nbsp;Masculino
 			        	<hr>
 			        </div>
 		        </div>
 		        
 		        <div class="row">
 		        	<label class="col-sm-4">E-mail</label>:&nbsp;&nbsp;
-			        <div class="col-sm-4"> 
+			        <div class="col-sm-6"> 
 			        	
-			        	<input type="text" class="form-control" th:value="${usuario.email}">
+			        	<input type="text" class="form-control" style="border: 0;" th:value="${usuario.email}">
 			        	<hr>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<label class="col-sm-4">Fecha de nacimiento</label>:&nbsp;&nbsp;
-			        <div class="col-sm-4"> 
-			        	<p class="card-text" th:text="${#dates.format(usuario.fechaNacimiento, 'dd/MM/yyyy')}"></p>
+			        <div class="col-sm-6">
+			        	<input type="date" name="fecha_ingreso" th:value="${usuario.fechaNacimiento}" class="form-control"  style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        
 		        <div class="row">
 		        	<label class="col-sm-4">Teléfono</label>:&nbsp;&nbsp;
-			        <div class="col-sm-4"> 
-			        	<p class="card-text" th:text="${usuario.telefono}"></p>
+			        <div class="col-sm-6"> 
+			        	<input type="text" th:value="${usuario.telefono}" class="form-control" style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<label class="col-sm-4">Contacto de emergencia</label>:&nbsp;&nbsp;
-			        <div class="col-sm-4"> 
-			        	<p class="card-text" th:text="${usuario.nombreContactoEmergencia}"></p>
+			        <div class="col-sm-6">
+			        	<input type="text" th:value="${usuario.nombreContactoEmergencia}" class="form-control" style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<label class="col-sm-4">Teléfono de emergencia</label>:&nbsp;&nbsp;
-			        <div class="col-sm-4"> 
-			        	<p class="card-text" th:text="${usuario.numeroContactoEmergencia}"></p>
+			        <div class="col-sm-6">
+			        	<input type="text" th:value="${usuario.numeroContactoEmergencia}" class="form-control" style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        <button class="btn  btn-outline-danger btn-sm btn-block">Eliminar cuenta</button>
-		        
+		        <button class="btn btn-light btn-sm btn-block">Actualizar campos</button>
 		      </div>
 		      
 		    </div>
-		    <div class="col-md-2">
+		    <!-- <div class="col-md-2">
 		    <ul class="list-group list-group-flush">
   				<li class="list-group-item" style="color: orange;"><ion-icon name="refresh" size="large"></ion-icon></li>
   				<li class="list-group-item">Cambiar contraseña</li>
 			</ul>
 		    	<button class="btn btn-primary btn-sm">Actualizar</button>
 		    	<button class="btn btn-primary btn-sm">Cambiar contraseña</button>
-		    </div>
+		    </div> -->
 		  </div>
 		</div>
 	</div>

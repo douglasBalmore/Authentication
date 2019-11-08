@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -67,6 +68,41 @@ public class UsuarioController {
 
 		return "redirect:/";
 	}
+	
+	@PostMapping("/update")
+	public String update(Model model, Usuario usuario, UsuarioForm usuarioForm, HttpServletRequest req , BindingResult result) throws ParseException {
+		
+		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fecha_nacimiento"));
+		
+		if (usuarioForm.getName().matches("^[a-zA-Z0-9]{3,}$") && req.getParameter("repetirContrasenhia") != null && req.getParameter("repetirContrasenhia").equals(usuarioForm.getPassword())){
+			usuario = new Usuario(usuarioForm.getName().trim(), 
+					usuarioForm.getApellido().trim(),
+					usuarioForm.getTelefono().trim(),
+					usuarioForm.getEmail().trim(),
+					new BCryptPasswordEncoder().encode(usuarioForm.getPassword()),
+					fecha,
+					usuarioForm.getSexo(),
+					usuarioForm.getNombreContactoEmergencia(),
+					usuarioForm.getNumeroContactoEmergencia(),
+					true);
+		}
+		else {
+			result.rejectValue("name", "username");
+			return "register";
+		}
+
+		try {
+			this.iUsuarioRepository.save(usuario);
+		} catch(DataIntegrityViolationException ex){
+			ex.printStackTrace();
+			result.rejectValue("name", "name");
+			return "register";
+		}
+
+		return "redirect:/";
+	}
+	
+	
 	
 	@GetMapping("/users")
 	public String listUsers(Model model){
