@@ -50,13 +50,15 @@
 		    </div>
 		    <div class="col-md-10">
 		      <div class="card-body" style="padding: 5%;">
-		      <h4><input type="text" th:value="${usuario.name + ' ' + usuario.apellido}" class="card-title" style="border: 0;"></h4>
+		      <form th:action="@{/userController/update}" method="POST">
+		      	<input type="hidden" th:value="${usuario.id}" name="id" >
+		      <h4><input type="text" th:value="${usuario.name}" name="name" class="card-title" style="border: 0;"><input type="text" th:value="${usuario.apellido}" name="apellido" class="card-title" style="border: 0;"></h4>
 		        <br>
 		        <div class="row">
 		        	<label class="col-sm-4">Sexo</label>:&nbsp;&nbsp;
 			        <div class="col-sm-6"> 
-			        	<input type="radio" name="genero" value="F" th:checked="${usuario.sexo == 'Femenino'}">&nbsp;Femenino&nbsp;
-						<input type="radio" name="genero" value="M" th:checked="${usuario.sexo == 'Masculino'}">&nbsp;Masculino
+			        	<input type="radio" name="sexo" value="Femenino" th:checked="${usuario.sexo == 'Femenino'}">&nbsp;Femenino&nbsp;
+						<input type="radio" name="sexo" value="Masculino" th:checked="${usuario.sexo == 'Masculino'}">&nbsp;Masculino
 			        	<hr>
 			        </div>
 		        </div>
@@ -64,15 +66,14 @@
 		        <div class="row">
 		        	<label class="col-sm-4">E-mail</label>:&nbsp;&nbsp;
 			        <div class="col-sm-6"> 
-			        	
-			        	<input type="text" class="form-control" style="border: 0;" th:value="${usuario.email}">
+			        	<input type="text" class="form-control" style="border: 0;" th:value="${usuario.email}" name="email">
 			        	<hr>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<label class="col-sm-4">Fecha de nacimiento</label>:&nbsp;&nbsp;
 			        <div class="col-sm-6">
-			        	<input type="date" name="fecha_ingreso" th:value="${usuario.fechaNacimiento}" class="form-control"  style="border: 0;">
+			        	<input type="date" name="fecha_nacimiento" th:value="${usuario.fechaNacimiento}" class="form-control"  style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
@@ -80,26 +81,28 @@
 		        <div class="row">
 		        	<label class="col-sm-4">Teléfono</label>:&nbsp;&nbsp;
 			        <div class="col-sm-6"> 
-			        	<input type="text" th:value="${usuario.telefono}" class="form-control" style="border: 0;">
+			        	<input type="text" th:value="${usuario.telefono}" name="telefono" class="form-control" style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<label class="col-sm-4">Contacto de emergencia</label>:&nbsp;&nbsp;
 			        <div class="col-sm-6">
-			        	<input type="text" th:value="${usuario.nombreContactoEmergencia}" class="form-control" style="border: 0;">
+			        	<input type="text" th:value="${usuario.nombreContactoEmergencia}" name="nombreContactoEmergencia" class="form-control" style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        <div class="row">
 		        	<label class="col-sm-4">Teléfono de emergencia</label>:&nbsp;&nbsp;
 			        <div class="col-sm-6">
-			        	<input type="text" th:value="${usuario.numeroContactoEmergencia}" class="form-control" style="border: 0;">
+			        	<input type="text" th:value="${usuario.numeroContactoEmergencia}" name="numeroContactoEmergencia" class="form-control" style="border: 0;">
 			        	<hr>
 			        </div>
 		        </div>
 		        <button class="btn  btn-outline-danger btn-sm btn-block">Eliminar cuenta</button>
-		        <button class="btn btn-light btn-sm btn-block">Actualizar campos</button>
+		        <button type="submit" class="btn btn-light btn-sm btn-block">Actualizar campos</button>
+		      </form>
+		      
 		      </div>
 		      
 		    </div>

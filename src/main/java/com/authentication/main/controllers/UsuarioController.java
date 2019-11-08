@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -70,25 +69,40 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/update")
-	public String update(Model model, Usuario usuario, UsuarioForm usuarioForm, HttpServletRequest req , BindingResult result) throws ParseException {
+	public String update(Model model, Usuario usuario, HttpServletRequest req , BindingResult result) throws ParseException {
 		
+		Long id = Long.parseLong(req.getParameter("id"));
 		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fecha_nacimiento"));
 		
-		if (usuarioForm.getName().matches("^[a-zA-Z0-9]{3,}$") && req.getParameter("repetirContrasenhia") != null && req.getParameter("repetirContrasenhia").equals(usuarioForm.getPassword())){
-			usuario = new Usuario(usuarioForm.getName().trim(), 
-					usuarioForm.getApellido().trim(),
-					usuarioForm.getTelefono().trim(),
-					usuarioForm.getEmail().trim(),
-					new BCryptPasswordEncoder().encode(usuarioForm.getPassword()),
+		if (req.getParameter("name").matches("^[a-zA-Z0-9]{3,}$")){
+			
+			usuario = iUsuarioRepository.findById(id).get();
+			
+			usuario.setName(req.getParameter("name").trim());
+			usuario.setApellido(req.getParameter("apellido").trim());
+			usuario.setSexo(req.getParameter("sexo").trim());
+			usuario.setEmail(req.getParameter("email").trim());
+			usuario.setFechaNacimiento(fecha);
+			usuario.setTelefono(req.getParameter("telefono"));
+			usuario.setNombreContactoEmergencia(req.getParameter("nombreContactoEmergencia"));
+			usuario.setNumeroContactoEmergencia(req.getParameter("numeroContactoEmergencia"));
+			usuario.setEnabled(true);
+			
+			/* usuario = new Usuario(id,
+					req.getParameter("name").trim(), 
+					req.getParameter("apellido").trim(),
+					req.getParameter("sexo").trim(),
+					req.getParameter("email").trim(),
 					fecha,
-					usuarioForm.getSexo(),
-					usuarioForm.getNombreContactoEmergencia(),
-					usuarioForm.getNumeroContactoEmergencia(),
+					req.getParameter("telefono"),
+					req.getParameter("nombreContactoEmergencia"),
+					req.getParameter("numeroContactoEmergencia"),
 					true);
+					*/
 		}
 		else {
 			result.rejectValue("name", "username");
-			return "register";
+			return "profile";
 		}
 
 		try {
@@ -96,13 +110,11 @@ public class UsuarioController {
 		} catch(DataIntegrityViolationException ex){
 			ex.printStackTrace();
 			result.rejectValue("name", "name");
-			return "register";
+			return "profile";
 		}
 
-		return "redirect:/";
+		return "redirect:/profile";
 	}
-	
-	
 	
 	@GetMapping("/users")
 	public String listUsers(Model model){

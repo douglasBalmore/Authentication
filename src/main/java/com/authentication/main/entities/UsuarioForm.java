@@ -1,5 +1,7 @@
 package com.authentication.main.entities;
 
+import java.util.Date;
+
 /*
  * Nombre de la clase: UsuarioForm
  * Fecha: 3/11/2019
@@ -10,11 +12,13 @@ package com.authentication.main.entities;
 public class UsuarioForm {
 	
 	//Atributos de la clase
+	private Long id;
 	private String name;	
 	private String apellido;
 	private String telefono;
 	private String email;
 	private String password;
+	private Date fechaNacimiento;
 	private String sexo;
 	private String nombreContactoEmergencia;
 	private String numeroContactoEmergencia;
@@ -38,6 +42,14 @@ public class UsuarioForm {
 	}
 	
 	//Métodos Getter y Setter
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -76,6 +88,14 @@ public class UsuarioForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getSexo() {

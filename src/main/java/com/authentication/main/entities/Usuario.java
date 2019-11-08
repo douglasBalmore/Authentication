@@ -77,6 +77,20 @@ public class Usuario {
         this.enabled = enabled;
     }
     
+    public Usuario(Long id, String name, String apellido, String telefono, String email, Date fechaNacimiento, 
+    		String sexo, String nombreContactoEmergencia, String numeroContactoEmergencia,  boolean enabled) {
+    	this.id = id;
+        this.name = name;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
+        this.sexo = sexo;
+        this.nombreContactoEmergencia = nombreContactoEmergencia;
+        this.numeroContactoEmergencia = numeroContactoEmergencia;
+        this.enabled = enabled;
+    }
+    
     //Métodos Getter y Setter
     public Long getId() {
 		return id;
